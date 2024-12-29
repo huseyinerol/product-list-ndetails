@@ -1,6 +1,7 @@
 import type { MetaFunction } from "@remix-run/node";
 import Header from "../components/header";
-import MainPageComponent from "../components/mainPageComp"
+import ProductListHorizontal from "~/components/mainPageComp/productListHorizontal";
+import ProductListVertical from "~/components/mainPageComp/productListVertical";
 
 export const meta: MetaFunction = () => {
   return [
@@ -13,7 +14,8 @@ export default function Index() {
   return (
     <div className="vh-100">
       <Header />
-      <MainPageComponent />
+      <ProductListHorizontal />
+      <ProductListVertical />
     </div>
   );
 }

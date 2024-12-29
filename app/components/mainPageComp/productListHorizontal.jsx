@@ -15,6 +15,7 @@ export default function ProductListHorizontal() {
         pagination={{
           clickable: true,
         }}
+        navigation={true}
         modules={[Pagination, Navigation]}
         className="mySwiper"
       >
