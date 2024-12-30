@@ -1,6 +1,7 @@
 import type { MetaFunction, LoaderFunction } from "@remix-run/node";
+import { useState } from "react";
 import { json } from "@remix-run/node";
-import { useLoaderData, useFetcher } from "@remix-run/react";
+import { useLoaderData} from "@remix-run/react";
 import Header from "../components/header";
 import ProductListHorizontal from "~/components/mainPageComp/productListHorizontal";
 import ProductListVertical from "~/components/mainPageComp/productListVertical";
@@ -43,28 +44,29 @@ export const loader: LoaderFunction = async () => {
 };
 
 export default function Index() {
-  const { horizontalProductList, productList, nextUrl } = useLoaderData<LoaderData>();
-  const fetcher = useFetcher<{ productList: Product[] }>();
+  const { horizontalProductList, productList, nextUrl: initialNextUrl } = useLoaderData<LoaderData>();
+  const [products, setProducts] = useState(productList);
+  const [nextUrl, setNextUrl] = useState(initialNextUrl);
+  
 
   const loadMore = async () => {
     if (nextUrl) {
-      const fullUrl = nextUrl.startsWith('http') ? nextUrl : `https://mock.akakce.dev/${nextUrl}`;
+      const fullUrl = nextUrl.startsWith("http") ? nextUrl : `https://mock.akakce.dev/${nextUrl}`;
       const response = await fetch(fullUrl);
       const data = await response.json();
-      fetcher.submit(data); // Update fetcher data directly
+
+      // Ürünleri ve nextUrl'i güncelle
+      setProducts((prevProducts) => [...prevProducts, ...data.productList]);
+      setNextUrl(data.nextUrl);
     }
   };
-
-  const newProducts = fetcher.data?.productList
-  ? [...productList, ...fetcher.data.productList]
-  : productList;
 
   return (
     <div className="vh-100">
       <Header />
       <ProductListHorizontal products={horizontalProductList} />
       <ProductListVertical
-        products={newProducts}
+        products={products}
         nextUrl={nextUrl}
         loadMore={loadMore}
       />
