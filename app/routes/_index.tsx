@@ -1,11 +1,9 @@
 import type { MetaFunction, LoaderFunction } from "@remix-run/node";
 import { json } from "@remix-run/node";
-import { useLoaderData,
-  //  useFetcher
-   } from "@remix-run/react";
+import { useLoaderData, useFetcher } from "@remix-run/react";
 import Header from "../components/header";
 import ProductListHorizontal from "~/components/mainPageComp/productListHorizontal";
-// import ProductListVertical from "~/components/mainPageComp/productListVertical";
+import ProductListVertical from "~/components/mainPageComp/productListVertical";
 
 export const meta: MetaFunction = () => {
   return [
@@ -25,11 +23,13 @@ type Product = {
   followCount: number;  
   url: string;          
 };
+
 type LoaderData = {
   horizontalProductList: Product[];
   productList: Product[];
   nextUrl: string | null;
 };
+
 export const loader: LoaderFunction = async () => {
   const response = await fetch("https://mock.akakce.dev/page.json");
 
@@ -42,27 +42,32 @@ export const loader: LoaderFunction = async () => {
   return json(data);
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default function Index() {
-  const { horizontalProductList,
-    //  productList,
-    //   nextUrl
-     } = useLoaderData<LoaderData>();
-  // const fetcher = useFetcher<{ productList: Product[] }>();
-  // const loadMore = () => {
-  //   if (nextUrl) {
-  //     fetcher.load(nextUrl);
-  //   }
-  // };
+  const { horizontalProductList, productList, nextUrl } = useLoaderData<LoaderData>();
+  const fetcher = useFetcher<{ productList: Product[] }>();
 
-  // const newProducts = fetcher.data?.productList || productList;
+  const loadMore = async () => {
+    if (nextUrl) {
+      const fullUrl = nextUrl.startsWith('http') ? nextUrl : `https://mock.akakce.dev/${nextUrl}`;
+      const response = await fetch(fullUrl);
+      const data = await response.json();
+      fetcher.submit(data); // Update fetcher data directly
+    }
+  };
+
+  const newProducts = fetcher.data?.productList
+  ? [...productList, ...fetcher.data.productList]
+  : productList;
 
   return (
     <div className="vh-100">
       <Header />
-      <ProductListHorizontal products={horizontalProductList}/>
-      {/* <ProductListVertical products={newProducts} nextUrl={nextUrl}/> */}
+      <ProductListHorizontal products={horizontalProductList} />
+      <ProductListVertical
+        products={newProducts}
+        nextUrl={nextUrl}
+        loadMore={loadMore}
+      />
     </div>
   );
 }
-
