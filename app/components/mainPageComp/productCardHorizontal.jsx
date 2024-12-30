@@ -1,28 +1,21 @@
 import { Card, Badge, Col, Row } from "react-bootstrap";
+import PropTypes from "prop-types";
+import { useNavigate } from "@remix-run/react";
 
-export default function ProductCardHorizontal() {
-  const product = [
-    {
-      code: 101,
-      name: "Iphone 13 128 GB",
-      imageUrl: "https://cdn.akakce.com/x/apple/iphone-13.jpg",
-      dropRatio: 5,
-      price: 20567,
-      countOfPrices: 96,
-      followCount: 5000,
-      url: "https://mock.akakce.dev/product101.json",
-    },
-  ];
-  const item = product[0];
+export default function ProductCardHorizontal({ product }) {
+  const navigate = useNavigate();
+  const handleClick = () => {
+    navigate(`/detail?productUrl=${encodeURIComponent(product.url)}`);
+  };
   return (
-    <div className="product-card" style={{ margin: "1rem" }}>
-      <Card className="shadow-sm border-0">
+    <div className="product-card" style={{ margin: "1rem" }} >
+      <Card className="shadow-sm border-0" onClick={handleClick}>
       <Row>
       <Col xs={4} className="d-flex justify-content-center align-items-center">
       <div className="text-center">
             <Card.Img
               variant="top"
-              src={item.imageUrl}
+              src={product.imageUrl}
               alt="Ürün Resmi"
               style={{ maxHeight: "150px", objectFit: "contain", marginLeft:"0.75rem" }}
             />
@@ -35,19 +28,19 @@ export default function ProductCardHorizontal() {
             bg="danger"
             style={{ marginLeft: "-2rem" }}
           >
-            %{item.dropRatio}
+            %{product.dropRatio}
           </Badge>
-          <Card.Title className="mt-3 text-primary">{item.name}</Card.Title>
+          <Card.Title className="mt-3 text-primary">{product.name}</Card.Title>
           <Card.Text>
             <strong style={{ fontSize: "1.5rem" }}>
-              {item.price.toLocaleString()} TL
+              {product.price.toLocaleString()} TL
             </strong>
           </Card.Text>
           <Card.Text className="text-muted">
-            {item.countOfPrices} satıcı
+            {product.countOfPrices} satıcı
           </Card.Text>
           <Card.Text className="text-muted">
-            {item.followCount}+ takip
+            {product.followCount}+ takip
           </Card.Text>
         </Card.Body>
         </Col>
@@ -56,3 +49,16 @@ export default function ProductCardHorizontal() {
     </div>
   );
 }
+
+ProductCardHorizontal.propTypes = {
+  product: PropTypes.shape({
+    code: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+    imageUrl: PropTypes.string.isRequired,
+    dropRatio: PropTypes.number.isRequired,
+    price: PropTypes.number.isRequired,
+    countOfPrices: PropTypes.number.isRequired,
+    followCount: PropTypes.number.isRequired,
+    url: PropTypes.string.isRequired,
+  }).isRequired,
+};
