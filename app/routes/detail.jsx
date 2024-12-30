@@ -11,7 +11,6 @@ export default function Detail() {
   const productUrl = queryParams.get("productUrl");
   useEffect(() => {
     if (productUrl) {
-      // Detay ürün verisini alıyoruz
       fetch(productUrl)
         .then((response) => response.json())
         .then((data) => {

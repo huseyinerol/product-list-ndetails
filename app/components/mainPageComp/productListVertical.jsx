@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 export default function ProductListVertical({ products, nextUrl, loadMore }) {
   return (
-    <Container  style={{ maxWidth: "800px", paddingBlockEnd: "1rem" }}>
+    <Container className="container-vertical-list" >
       <div className="d-flex justify-content-center">
         <Row xs={1} md={2} className="justify-content-center">
           {products.map((product) => (
@@ -17,7 +17,7 @@ export default function ProductListVertical({ products, nextUrl, loadMore }) {
       
       {nextUrl && (
         <div className="d-flex justify-content-end mt-3 mb-5 mr-7">
-          <Button onClick={loadMore} variant="primary">Sonraki Sayfa</Button>
+          <Button onClick={loadMore} variant="primary">Daha Fazla</Button>
         </div>
       )}
     </Container>

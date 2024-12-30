@@ -6,8 +6,7 @@ export default function DetailPageIndex({ product }) {
       <Container className="d-flex justify-content-center mt-4">
         <Col sm={6}>
           <Card
-            style={{ boxShadow: "0px 4px 10px rgba(0,0,0,0.1)" }}
-            className="p-3"
+            className="detail-card-shadow p-3"
           >
             <Card.Body>
               <Card.Subtitle className="mb-2 text-primary">{product.mkName}</Card.Subtitle>
@@ -19,7 +18,7 @@ export default function DetailPageIndex({ product }) {
                 <Card.Img
                   src={product.imageUrl}
                   alt="Product"
-                  style={{ maxHeight: "150px", objectFit: "contain", marginLeft:"0.75rem" }}
+                  className="card-img"                  
                 />
               </div>
               <Card.Text className="text-center mb-1">Kapsite seçenekleri:</Card.Text>
@@ -30,10 +29,10 @@ export default function DetailPageIndex({ product }) {
                   </Button>
                 ))}
               </div>
-              <Card.Text className="text-center text-muted" style={{ fontSize: "0.9rem" }}>
+              <Card.Text className="text-center text-muted font-size-09">
                 {product.countOfPrices} satıcı içinde kargo dahil en ucuz fiyat seçeneği
               </Card.Text>
-              <Card.Text className="text-center fw-bold" style={{ fontSize: "1.5rem" }}>
+              <Card.Text className="text-center fw-bold font-size-15" >
                 {product.price.toLocaleString()} TL
               </Card.Text>
               {product.freeShipping && (
@@ -41,7 +40,7 @@ export default function DetailPageIndex({ product }) {
                   Ücretsiz kargo
                 </Card.Text>
               )}
-              <Card.Text className="text-center text-muted mt-3" style={{ fontSize: "0.8rem" }}>
+              <Card.Text className="text-center text-muted font-size-08 mt-3">
                 Son güncelleme: {product.lastUpdate}
               </Card.Text>
             </Card.Body>

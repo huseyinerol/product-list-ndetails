@@ -8,7 +8,7 @@ export default function ProductCardHorizontal({ product }) {
     navigate(`/detail?productUrl=${encodeURIComponent(product.url)}`);
   };
   return (
-    <div className="product-card" style={{ margin: "1rem" }} >
+    <div className="product-card margin-1">
       <Card className="shadow-sm border-0" onClick={handleClick}>
       <Row>
       <Col xs={4} className="d-flex justify-content-center align-items-center">
@@ -17,7 +17,7 @@ export default function ProductCardHorizontal({ product }) {
               variant="top"
               src={product.imageUrl}
               alt="Ürün Resmi"
-              style={{ maxHeight: "150px", objectFit: "contain", marginLeft:"0.75rem" }}
+              className="card-img"
             />
           </div>          
       </Col>
@@ -32,7 +32,7 @@ export default function ProductCardHorizontal({ product }) {
           </Badge>
           <Card.Title className="mt-3 text-primary">{product.name}</Card.Title>
           <Card.Text>
-            <strong style={{ fontSize: "1.5rem" }}>
+            <strong className="font-size-15">
               {product.price.toLocaleString()} TL
             </strong>
           </Card.Text>

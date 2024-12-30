@@ -17,4 +17,36 @@ body {
     border-bottom: 1px solid #E8E9EA;
     box-shadow: 0px 0px 12px 8px rgba(170, 174, 181, 0.20);
   }
+  .container-vertical-list{
+    max-width: 800px;
+    padding-block-end: 1rem;
+  }
+  .detail-card-shadow {
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+  }
+  .product-card {
+    width: 18rem;
+    margin: 1rem;
+  }
+  .card-img {
+    max-height: 150px;
+    object-fit: contain;
+    margin-left: 0.75rem;
+  }
+  .card-img-v {
+    max-height: 150px;
+    object-fit: contain;
+  }
+  .font-size-09 {
+    font-size: 0.9rem;
+  }
+  .font-size-08 {
+    font-size: 0.8rem;
+  }
+  .font-size-15 {
+    font-size: 1.5rem;
+  }
+  .margin-1 {
+    margin: 1rem;
+  }
 }

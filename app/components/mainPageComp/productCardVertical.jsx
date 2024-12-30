@@ -9,7 +9,7 @@ export default function ProductCardVertical({ product }) {
   };
 
   return (
-    <div className="product-card" style={{ width: "18rem", margin: "1rem" }} >
+    <div className="product-card" >
       <Card className="shadow-sm border-0" onClick={handleClick}>
         <Card.Body>
           <Badge
@@ -25,12 +25,12 @@ export default function ProductCardVertical({ product }) {
               variant="top"
               src={product.imageUrl}
               alt="Ürün Resmi"
-              style={{ maxHeight: "150px", objectFit: "contain" }}
+              className="card-img-v"
             />
           </div>
           <Card.Title className="mt-3 text-primary">{product.name}</Card.Title>
           <Card.Text>
-            <strong style={{ fontSize: "1.5rem" }}>
+            <strong className="font-size-15 ">
               {product.price.toLocaleString()} TL
             </strong>
           </Card.Text>
